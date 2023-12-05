@@ -34,10 +34,12 @@ const reviewSchema = new Schema({
         default: Date.now,
         get: (date) => date.toDateString()
     },
-    toJSON: {
-        getters: true,
-    }
-});
+},
+    {
+        toJSON: {
+            getters: true,
+        }
+    });
 
 const Review = mongoose.model('Review', reviewSchema);
 
