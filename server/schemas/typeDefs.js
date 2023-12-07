@@ -22,8 +22,8 @@ const typeDefs = `
         productID: ID
         userID: ID
         rating: Float
-        createdAt: DateTime
-        updatedAt: DateTime
+        createdAt: String
+        updatedAt: String
     }
 
     type Order {
@@ -66,7 +66,7 @@ const typeDefs = `
         products(category: ID, name: String): [Product]
         product(_id: ID!): Product
         user: User
-        order(_id: ID!) Order
+        order(_id: ID!): Order
         checkout(products: [ProductInput]): Checkout
         reviews(User: ID): [Review]
     }
@@ -79,7 +79,7 @@ const typeDefs = `
 
     type Mutation {
         addUser(firstName: String!, lastName: String!, email: String!, phoneNumber: String!, password: String!): Auth
-        addOrder(products: [ID!]) Order
+        addOrder(products: [ID!]): Order
         updateUser(firstName: String, lastName: String, email: String, phoneNumber: String, password: String): User
         createReview(title: String!, content: String!, rating: Float!): Review
         updateReview(title: String!, content: String!, rating: Float!): Review

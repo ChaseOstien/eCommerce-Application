@@ -1,7 +1,7 @@
 const db = require('./connection');
 const { User, Product, Category, Review } = require('../models');
 const cleanDB = require('./cleanDB');
-const faker = require('@faker-js/faker');
+const { faker } = require('@faker-js/faker');
 // import { faker } from '@faker-js/faker';
 
 db.once('open', async () => {
@@ -28,15 +28,6 @@ db.once('open', async () => {
       category: categories[0]._id,
       price: 2.99,
       quantity: 500,
-      reviews: [
-        {
-            title: 'These cookies are so good!',
-            content: 'I always order these cookies and I eat them with milk! They are also the best when you warm them up.',
-            productId: products[0]._id,
-            userId: '65556b958eb9b883cce6bb5f',
-            rating: 9
-        }
-      ]
     },
     {
       name: 'Canned Coffee',
@@ -138,32 +129,94 @@ db.once('open', async () => {
     }
   ]);
 
-  // Function to generate random review data
-  const generateReview = (productId, userId) => ({
-    title: faker.lorem.words(),
-    content: faker.lorem.paragraph(),
-    productId,
-    userId,
-    rating: Math.floor(Math.random() * 10) + 1 // Random rating between 1 and 10
-});
+  console.log('Products Seeded');
 
-// Inserting reviews for each product
-for (let i = 1; i < products.length; i++) {
-    const userId = i % 2 === 0 ? '65556b958eb9b883cce6bb5f' : '65556b958eb9b883cce6bb62';
-    products[i].reviews = [generateReview(products[i]._id, userId)];
-}
+  const reviews = await Review.insertMany([
+    {
+        title: 'These cookies are so good!',
+        content: 'I always order these cookies and I eat them with milk! They are also the best when you warm them up.',
+        productId: products[0]._id,
+        userId: '65556b958eb9b883cce6bb5f',
+        rating: 9
+    },
+    {
+        title: "Don't buy!",
+        content: 'Do not buy this canned coffee, it is not good!.',
+        productId: products[1]._id,
+        userId: '65556b958eb9b883cce6bb5f',
+        rating: 2
+    },
+    {
+        title: 'This stuff rocks!',
+        content: 'This toilet paper is soft and strong. A little bit goes a long way.',
+        productId: products[2]._id,
+        userId: '65556b958eb9b883cce6bb5f',
+        rating: 10
+    },{
+        title: 'Smells awesome!',
+        content: 'This handmade soap smells awesome and makes your hands soft. Highly recomend!',
+        productId: products[3]._id,
+        userId: '65556b958eb9b883cce6bb5f',
+        rating: 9
+    },
+    {
+        title: "It's a set of wooden spoons.",
+        content: 'There is nothing extraordinary about these. They just scoop things like a spoon should.',
+        productId: products[4]._id,
+        userId: '65556b958eb9b883cce6bb5f',
+        rating: 5
+    },
+    {
+        title: 'The best camera on the market!',
+        content: 'This is hands down the best camera on the market! I would recomend this for beginers and experts!',
+        productId: products[5]._id,
+        userId: '65556b958eb9b883cce6bb62',
+        rating: 10
+    },
+    {
+        title: 'No thank you',
+        content: 'This tablet does not have enough storage space and the screen is pixelated.',
+        productId: products[6]._id,
+        userId: '65556b958eb9b883cce6bb62',
+        rating: 2
+    },
+    {
+        title: 'My kids love this book!',
+        content: 'My kids absolutely love this book and want to read it every night.',
+        productId: products[7]._id,
+        userId: '65556b958eb9b883cce6bb62',
+        rating: 9
+    },
+    {
+        title: 'It spins!',
+        content: 'This top actually spins like the description says it does!',
+        productId: products[8]._id,
+        userId: '65556b958eb9b883cce6bb62',
+        rating: 5
+    },
+    {
+        title: 'Could have done more.',
+        content: 'The designers could have done a lot more with this set of wooden horses.',
+        productId: products[9]._id,
+        userId: '65556b958eb9b883cce6bb62',
+        rating: 3
+    }
+]);
 
-  console.log('products seeded');
+console.log('Reviews Seeded');
 
   await User.create({
-    firstName: 'Pamela',
-    lastName: 'Washington',
-    email: 'pamela@testmail.com',
+    firstName: 'Chase',
+    lastName: 'Ostien',
+    email: 'test@testmail.com',
     password: 'password12345',
     orders: [
       {
         products: [products[0]._id, products[0]._id, products[1]._id]
       }
+    ],
+    reviews: [
+        reviews[0]._id, reviews[1]._id, reviews[3]._id
     ]
   });
 
@@ -171,7 +224,15 @@ for (let i = 1; i < products.length; i++) {
     firstName: 'Elijah',
     lastName: 'Holt',
     email: 'eholt@testmail.com',
-    password: 'password12345'
+    password: 'password12345',
+    orders: [
+        {
+          products: [products[0]._id, products[0]._id, products[1]._id]
+        }
+      ],
+      reviews: [
+        reviews[4]._id, reviews[5]._id, reviews[6]._id
+    ]
   });
 
   console.log('users seeded');
