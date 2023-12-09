@@ -26,7 +26,7 @@ const startApolloServer = async () => {
     app.use('/', express.static(path.join(__dirname, '../client/public/images')));
 
     app.use('/graphql', expressMiddleware(server, {
-        constext: authMiddleware
+        context: authMiddleware
     }));
 
     if (process.env.NODE_ENV === 'production') {

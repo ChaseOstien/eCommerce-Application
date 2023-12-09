@@ -68,7 +68,7 @@ const typeDefs = `
         user: User
         order(_id: ID!): Order
         checkout(products: [ProductInput]): Checkout
-        reviews(User: ID): [Review]
+        reviews(user: ID, product: ID ): [Review]
     }
 
     interface MutationResponse {
@@ -83,7 +83,7 @@ const typeDefs = `
         updateUser(firstName: String, lastName: String, email: String, phoneNumber: String, password: String): User
         createReview(title: String!, content: String!, rating: Float!): Review
         updateReview(title: String!, content: String!, rating: Float!): Review
-        updateProduct(_id: ID!, name: String, description: String, quantity: Int, price: Float): Product
+        updateProduct(_id: ID!, quantity: Int!): Product
         login(email: String!, password: String!): Auth
     }
 
