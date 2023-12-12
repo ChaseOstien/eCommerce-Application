@@ -19,8 +19,8 @@ const typeDefs = `
         _id: ID
         title: String
         content: String
-        productID: ID
-        userID: ID
+        productId: ID
+        userId: ID
         rating: Float
         createdAt: String
         updatedAt: String
@@ -68,7 +68,7 @@ const typeDefs = `
         user: User
         order(_id: ID!): Order
         checkout(products: [ProductInput]): Checkout
-        reviews(user: ID, product: ID ): [Review]
+        reviews(userId: ID, productId: ID ): [Review]
     }
 
     interface MutationResponse {

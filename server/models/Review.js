@@ -13,12 +13,12 @@ const reviewSchema = new Schema({
     productId: {
         type: Schema.Types.ObjectId,
         ref: 'Product',
-        required: false
+        required: true
     },
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: false
+        required: true
     },
     rating: {
         type: Number,
@@ -29,7 +29,7 @@ const reviewSchema = new Schema({
         default: Date.now,
         get: (date) => date.toDateString()
     },
-    updateAt: {
+    updatedAt: {
         type: Date,
         default: Date.now,
         get: (date) => date.toDateString()

@@ -136,76 +136,77 @@ db.once('open', async () => {
         title: 'These cookies are so good!',
         content: 'I always order these cookies and I eat them with milk! They are also the best when you warm them up.',
         productId: products[0]._id,
-        userId: '65556b958eb9b883cce6bb5f',
+        userId: '6577bd7bc56bb834d9a90b4a',
         rating: 9
     },
     {
         title: "Don't buy!",
         content: 'Do not buy this canned coffee, it is not good!.',
         productId: products[1]._id,
-        userId: '65556b958eb9b883cce6bb5f',
+        userId: '6577bd7bc56bb834d9a90b4a',
         rating: 2
     },
     {
         title: 'This stuff rocks!',
         content: 'This toilet paper is soft and strong. A little bit goes a long way.',
         productId: products[2]._id,
-        userId: '65556b958eb9b883cce6bb5f',
+        userId: '6577bd7bc56bb834d9a90b4a',
         rating: 10
     },{
         title: 'Smells awesome!',
         content: 'This handmade soap smells awesome and makes your hands soft. Highly recomend!',
         productId: products[3]._id,
-        userId: '65556b958eb9b883cce6bb5f',
+        userId: '6577bd7bc56bb834d9a90b4a',
         rating: 9
     },
     {
         title: "It's a set of wooden spoons.",
         content: 'There is nothing extraordinary about these. They just scoop things like a spoon should.',
         productId: products[4]._id,
-        userId: '65556b958eb9b883cce6bb5f',
+        userId: '6577bd7bc56bb834d9a90b4a',
         rating: 5
     },
     {
         title: 'The best camera on the market!',
         content: 'This is hands down the best camera on the market! I would recomend this for beginers and experts!',
         productId: products[5]._id,
-        userId: '65556b958eb9b883cce6bb62',
+        userId: '6577bd7bc56bb834d9a90b4f',
         rating: 10
     },
     {
         title: 'No thank you',
         content: 'This tablet does not have enough storage space and the screen is pixelated.',
         productId: products[6]._id,
-        userId: '65556b958eb9b883cce6bb62',
+        userId: '6577bd7bc56bb834d9a90b4f',
         rating: 2
     },
     {
         title: 'My kids love this book!',
         content: 'My kids absolutely love this book and want to read it every night.',
         productId: products[7]._id,
-        userId: '65556b958eb9b883cce6bb62',
+        userId: '6577bd7bc56bb834d9a90b4f',
         rating: 9
     },
     {
         title: 'It spins!',
         content: 'This top actually spins like the description says it does!',
         productId: products[8]._id,
-        userId: '65556b958eb9b883cce6bb62',
+        userId: '6577bd7bc56bb834d9a90b4f',
         rating: 5
     },
     {
         title: 'Could have done more.',
         content: 'The designers could have done a lot more with this set of wooden horses.',
         productId: products[9]._id,
-        userId: '65556b958eb9b883cce6bb62',
+        userId: '6577bd7bc56bb834d9a90b4f',
         rating: 3
     }
 ]);
 
 console.log('Reviews Seeded');
 
-  await User.create({
+  const users = await User.create({
+    _id: '6577bd7bc56bb834d9a90b4a',
     firstName: 'Chase',
     lastName: 'Ostien',
     email: 'test@testmail.com',
@@ -216,11 +217,24 @@ console.log('Reviews Seeded');
       }
     ],
     reviews: [
-        reviews[0]._id, reviews[1]._id, reviews[3]._id
+        {
+        _id: reviews[0]._id,
+        userId: '6577bd7bc56bb834d9a90b4a',
+        productId: products[0]._id,
+        },
+        {
+        _id: reviews[1]._id,
+        userId: '6577bd7bc56bb834d9a90b4a',
+        productId: products[1]._id,
+        },
+        {
+        _id: reviews[2]._id,
+        userId: '6577bd7bc56bb834d9a90b4a',
+        productId: products[2]._id,
+        }
     ]
-  });
-
-  await User.create({
+  },{
+    _id: '6577bd7bc56bb834d9a90b4f',
     firstName: 'Elijah',
     lastName: 'Holt',
     email: 'eholt@testmail.com',
@@ -230,10 +244,40 @@ console.log('Reviews Seeded');
           products: [products[0]._id, products[0]._id, products[1]._id]
         }
       ],
-      reviews: [
-        reviews[4]._id, reviews[5]._id, reviews[6]._id
+    reviews: [
+        {
+            _id: reviews[3]._id,
+            userId: '6577bd7bc56bb834d9a90b4f',
+            productId: products[3]._id,
+            },
+            {
+            _id: reviews[4]._id,
+            userId: '6577bd7bc56bb834d9a90b4f',
+            productId: products[4]._id,
+            },
+            {
+            _id: reviews[5]._id,
+            userId: '6577bd7bc56bb834d9a90b4f',
+            productId: products[5]._id,
+            }
     ]
-  });
+  }
+  );
+
+//   await User.create({
+//     firstName: 'Elijah',
+//     lastName: 'Holt',
+//     email: 'eholt@testmail.com',
+//     password: 'password12345',
+//     orders: [
+//         {
+//           products: [products[0]._id, products[0]._id, products[1]._id]
+//         }
+//       ],
+//     reviews: [
+//        reviews[4]._id, reviews[5]._id, reviews[6]._id
+//     ]
+//   });
 
   console.log('users seeded');
 

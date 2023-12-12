@@ -79,15 +79,15 @@ const resolvers = {
   
         return { session: session.id };
       },
-      reviews: async (parent, { user, product }) => {
+      reviews: async (parent, { userId, productId }) => {
         const params = {};
 
-        if(user) {
-            params.User._id = user;
+        if(userId) {
+            params.UserId = userId;
         }
 
-        if(product) {
-            params.Product._id = product;
+        if(productId) {
+            params.ProductId = productId;
         }
 
         return await Review.find(params);
