@@ -7,7 +7,7 @@ const { authMiddleware } = require('./utils/auth.js');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const app = express();
 
 const server = new ApolloServer({
@@ -26,7 +26,7 @@ const startApolloServer = async () => {
     app.use('/', express.static(path.join(__dirname, '../client/public/images')));
 
     app.use('/graphql', expressMiddleware(server, {
-        constext: authMiddleware
+        context: authMiddleware
     }));
 
     if (process.env.NODE_ENV === 'production') {
