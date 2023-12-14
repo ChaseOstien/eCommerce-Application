@@ -27,7 +27,11 @@ const userSchema = new Schema({
         minlength: 5
       },
       orders: [Order.schema],
-      reviews: [Review.schema]
+      reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Review',
+        required: true
+      }]
 });
 
 // set up pre-save middleware to create password

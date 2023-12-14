@@ -205,7 +205,8 @@ db.once('open', async () => {
 
 console.log('Reviews Seeded');
 
-  const users = await User.create({
+  const users = await User.create([
+    {
     _id: '6577bd7bc56bb834d9a90b4a',
     firstName: 'Chase',
     lastName: 'Ostien',
@@ -216,24 +217,8 @@ console.log('Reviews Seeded');
         products: [products[0]._id, products[0]._id, products[1]._id]
       }
     ],
-    reviews: [
-        {
-        _id: reviews[0]._id,
-        userId: '6577bd7bc56bb834d9a90b4a',
-        productId: products[0]._id,
-        },
-        {
-        _id: reviews[1]._id,
-        userId: '6577bd7bc56bb834d9a90b4a',
-        productId: products[1]._id,
-        },
-        {
-        _id: reviews[2]._id,
-        userId: '6577bd7bc56bb834d9a90b4a',
-        productId: products[2]._id,
-        }
-    ]
-  },{
+  },
+  {
     _id: '6577bd7bc56bb834d9a90b4f',
     firstName: 'Elijah',
     lastName: 'Holt',
@@ -244,40 +229,66 @@ console.log('Reviews Seeded');
           products: [products[0]._id, products[0]._id, products[1]._id]
         }
       ],
-    reviews: [
-        {
-            _id: reviews[3]._id,
-            userId: '6577bd7bc56bb834d9a90b4f',
-            productId: products[3]._id,
-            },
-            {
-            _id: reviews[4]._id,
-            userId: '6577bd7bc56bb834d9a90b4f',
-            productId: products[4]._id,
-            },
-            {
-            _id: reviews[5]._id,
-            userId: '6577bd7bc56bb834d9a90b4f',
-            productId: products[5]._id,
-            }
-    ]
-  }
-  );
+    }
+]);
 
-//   await User.create({
-//     firstName: 'Elijah',
-//     lastName: 'Holt',
-//     email: 'eholt@testmail.com',
-//     password: 'password12345',
-//     orders: [
+await Promise.all([
+    Review.updateOne({ _id: reviews[0]._id }, { userId: users[0]._id, productId: products[0]._id }),
+    Review.updateOne({ _id: reviews[1]._id }, { userId: users[0]._id, productId: products[1]._id }),
+    Review.updateOne({ _id: reviews[2]._id }, { userId: users[0]._id, productId: products[2]._id }),
+    // ... (similar updates for the second user's reviews)
+    Review.updateOne({ _id: reviews[3]._id }, { userId: users[1]._id, productId: products[3]._id }),
+    Review.updateOne({ _id: reviews[4]._id }, { userId: users[1]._id, productId: products[4]._id }),
+    Review.updateOne({ _id: reviews[5]._id }, { userId: users[1]._id, productId: products[5]._id }),
+    User.updateOne({ _id: users[0]._id }, { reviews: [reviews[0]._id, reviews[1]._id, reviews[2]._id] }),
+    User.updateOne({ _id: users[1]._id }, { reviews: [reviews[3]._id, reviews[4]._id, reviews[5]._id] }),
+    Product.updateOne({ _id: products[0]._id }, { reviews: [reviews[0]._id] }),
+    Product.updateOne({ _id: products[1]._id }, { reviews: [reviews[1]._id] }),
+    Product.updateOne({ _id: products[2]._id }, { reviews: [reviews[2]._id] }),
+    Product.updateOne({ _id: products[3]._id }, { reviews: [reviews[3]._id] }),
+    Product.updateOne({ _id: products[4]._id }, { reviews: [reviews[4]._id] }),
+    Product.updateOne({ _id: products[5]._id }, { reviews: [reviews[5]._id] }),
+    Product.updateOne({ _id: products[6]._id }, { reviews: [reviews[6]._id] }),
+    Product.updateOne({ _id: products[7]._id }, { reviews: [reviews[7]._id] }),
+    Product.updateOne({ _id: products[8]._id }, { reviews: [reviews[8]._id] }),
+    Product.updateOne({ _id: products[9]._id }, { reviews: [reviews[9]._id] }),
+]);
+
+// reviews: [
+//     {
+//     _id: reviews[0]._id,
+//     userId: '6577bd7bc56bb834d9a90b4a',
+//     productId: products[0]._id,
+//     },
+//     {
+//     _id: reviews[1]._id,
+//     userId: '6577bd7bc56bb834d9a90b4a',
+//     productId: products[1]._id,
+//     },
+//     {
+//     _id: reviews[2]._id,
+//     userId: '6577bd7bc56bb834d9a90b4a',
+//     productId: products[2]._id,
+//     }
+// ]
+
+// reviews: [
+//     {
+//         _id: reviews[3]._id,
+//         userId: '6577bd7bc56bb834d9a90b4f',
+//         productId: products[3]._id,
+//         },
 //         {
-//           products: [products[0]._id, products[0]._id, products[1]._id]
+//         _id: reviews[4]._id,
+//         userId: '6577bd7bc56bb834d9a90b4f',
+//         productId: products[4]._id,
+//         },
+//         {
+//         _id: reviews[5]._id,
+//         userId: '6577bd7bc56bb834d9a90b4f',
+//         productId: products[5]._id,
 //         }
-//       ],
-//     reviews: [
-//        reviews[4]._id, reviews[5]._id, reviews[6]._id
-//     ]
-//   });
+// ]
 
   console.log('users seeded');
 

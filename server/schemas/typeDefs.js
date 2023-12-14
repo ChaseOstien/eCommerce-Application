@@ -68,6 +68,7 @@ const typeDefs = `
         user: User
         order(_id: ID!): Order
         checkout(products: [ProductInput]): Checkout
+        review(_id: ID!): Review
         reviews(userId: ID, productId: ID ): [Review]
     }
 

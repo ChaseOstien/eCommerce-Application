@@ -21,13 +21,16 @@ const resolvers = {
                   };
             }
 
-            return await Product.find(params).populate('category');
+            return await Product.find(params).populate('category').populate('reviews');
         },
         product: async (parent, { _id }) => {
-            return await Product.findById(_id).populate('category');
+            const product = await Product.findById(_id).populate('category').populate('reviews');
+            console.log(product);
+            return product;
     },
         user: async (parent, args, context) => {
-            const user = (await User.findById(context.user._id)).populate({
+            if(context.user) {
+            const user = await User.findById(context.user._id).populate({
                 path: 'orders.products',
                 populate: 'category',
             });
@@ -35,6 +38,8 @@ const resolvers = {
             user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
 
             return user;
+        }
+        throw AuthenticationError;
     },
         order: async (parent, { _id }, context) => {
             if (context.user) {
@@ -79,15 +84,20 @@ const resolvers = {
   
         return { session: session.id };
       },
-      reviews: async (parent, { userId, productId }) => {
+      review: async (parent, { _id }) => {
+        return await Review.findById(_id)
+      },
+      reviews: async (parent, { userId, productId }, context) => {
         const params = {};
 
         if(userId) {
-            params.UserId = userId;
+            params.userId = userId;
+            console.log(params.userId);
         }
 
         if(productId) {
-            params.ProductId = productId;
+            params.productId = productId;
+            console.log(params.productId);
         }
 
         return await Review.find(params);

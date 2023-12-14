@@ -30,8 +30,11 @@ const productSchema = new Schema({
         ref: 'Category',
         required: true
     },
-    reviews: 
-        [Review.schema]
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Review',
+        required: true
+    }]
 },
 {
     toJSON: {
